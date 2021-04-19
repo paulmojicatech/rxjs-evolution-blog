@@ -82,9 +82,12 @@ export class SubscribesComponent implements OnInit, OnDestroy {
             .getPlayers()
             .pipe(takeUntil(this._componentDestroyed$))
             .subscribe(players => {
-                players.forEach(player =>
-                    this.addPlayerToPositionSection(player)
-                );
+                players.forEach(player => {
+                    this._playersHttpSvc.getPlayerDetails(player).subscribe(playerDetails => {
+                        this.addPlayerToPositionSection(playerDetails);
+                    });
+                    
+                });
                 this.filteredPositions = this.positionSections;
             });
     }

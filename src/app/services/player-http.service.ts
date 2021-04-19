@@ -8,4 +8,8 @@ export class PlayerHttpService {
   getPlayers(): Observable<IPlayerOverview[]> {
     return of(MOCK_PLAYERS_OVERVIEW);
   }
+
+  getPlayerDetails(playerToGet: IPlayerOverview): Observable<IPlayerOverview> {
+    return of(MOCK_PLAYERS_OVERVIEW.find(player => player.name === playerToGet.name));
+  }
 }

@@ -11,7 +11,11 @@ export enum PlayerPositionType {
 export interface IPlayerOverview {
   name: string;
   position: PlayerPositionType;
-  nickname: string;
+  details?: IPlayerDetails;
+}
+
+export interface IPlayerDetails {
+nickname: string;
   specialty: string;
   likes?: number;
 }
