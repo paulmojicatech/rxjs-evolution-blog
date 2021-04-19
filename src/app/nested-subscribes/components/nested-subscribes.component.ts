@@ -1,7 +1,9 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
-import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
-import { Observable, Subject } from "rxjs";
-import { startWith, takeUntil } from "rxjs/operators";
+import { FormBuilder, FormGroup } from "@angular/forms";
+import { Subject } from "rxjs";
+import { takeUntil } from "rxjs/operators";
+import { IPlayerOverview } from "../../models/players.interface";
+import { PlayerHttpService } from "../../services/player-http.service";
 
 @Component({
   templateUrl: './nested-subscribes.component.html'
@@ -16,11 +18,12 @@ export class NestedSubscribesComponent implements OnInit, OnDestroy {
    'Power Guard',
    'Center'
   ];
-  filteredPositions: string[];;
+  filteredPositions: string[];
+  players: IPlayerOverview[];
   
   private _componentDestroyed$ = new Subject();
 
-  constructor(private _fb: FormBuilder) { }
+  constructor(private _fb: FormBuilder, private _playersHttpSvc: PlayerHttpService) { }
 
   ngOnInit(): void {
     this.topFiveForm = this._fb.group({
@@ -37,12 +40,19 @@ export class NestedSubscribesComponent implements OnInit, OnDestroy {
         } else {
           this.filteredPositions = this.positions;
         }
-      })
-
+      });
   }
 
   ngOnDestroy(): void {
     this._componentDestroyed$.next();
+  }
+
+  private getPlayers(): void {
+    this._playersHttpSvc.getPlayers().pipe(
+      takeUntil(this._componentDestroyed$)
+    ).subscribe(players => {
+      this.players = players;
+    })
   }
 
 }
