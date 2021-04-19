@@ -15,5 +15,5 @@ export interface IPlayerOverview {
 
 export interface IPositionSections {
   position: PlayerPositionType;
-  player: IPlayerOverview;
+  players: IPlayerOverview[];
 }
