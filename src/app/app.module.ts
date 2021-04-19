@@ -13,8 +13,8 @@ const routes: Route[] = [
         path: '',
         pathMatch: 'full',
         loadChildren: () =>
-            import('./nested-subscribes/nested-subscribes.module').then(
-                m => m.NestedSubscribesModule
+            import('./subscribes/subscribes.module').then(
+                m => m.SubscribesModule
             ),
     },
 ];

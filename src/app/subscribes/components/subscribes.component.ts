@@ -8,9 +8,9 @@ import { PlayerPositionType } from '../../models/players.interface';
 import { PlayerHttpService } from '../../services/player-http.service';
 
 @Component({
-    templateUrl: './nested-subscribes.component.html',
+    templateUrl: './subscribes.component.html',
 })
-export class NestedSubscribesComponent implements OnInit, OnDestroy {
+export class SubscribesComponent implements OnInit, OnDestroy {
     topFiveForm: FormGroup;
     filteredPositions: IPositionSections[];
     players: IPlayerOverview[];

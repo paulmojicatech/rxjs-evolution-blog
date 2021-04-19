@@ -7,13 +7,13 @@ import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
 import { MatListModule } from "@angular/material/list";
 import { Route, RouterModule } from "@angular/router";
-import { NestedSubscribesComponent } from "./components/nested-subscribes.component";
+import { SubscribesComponent } from "./components/subscribes.component";
 
 const routes: Route[] = [
   {
     path: '',
     pathMatch: 'full',
-    component: NestedSubscribesComponent
+    component: SubscribesComponent
   }
 ]
 
@@ -30,7 +30,7 @@ const routes: Route[] = [
     MatExpansionModule
   ],
   declarations: [
-    NestedSubscribesComponent
+    SubscribesComponent
   ]
 })
-export class NestedSubscribesModule {}
+export class SubscribesModule {}
