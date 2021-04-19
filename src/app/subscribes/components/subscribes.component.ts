@@ -1,5 +1,6 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { MatDrawer } from '@angular/material/sidenav';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { IPositionSections } from '../../models/players.interface';
@@ -12,10 +13,15 @@ import { PlayerHttpService } from '../../services/player-http.service';
     styleUrls: ['./subscribes.component.scss']
 })
 export class SubscribesComponent implements OnInit, OnDestroy {
+
+    @ViewChild('drawer')
+    drawer: MatDrawer;
+
     topFiveForm: FormGroup;
     filteredPositions: IPositionSections[];
     players: IPlayerOverview[];
     positionSections: IPositionSections[];
+    selectedPlayer: IPlayerOverview;
     showSidePanel = false;
 
     private _componentDestroyed$ = new Subject();
@@ -51,6 +57,11 @@ export class SubscribesComponent implements OnInit, OnDestroy {
 
     ngOnDestroy(): void {
         this._componentDestroyed$.next();
+    }
+
+    handlePlayerSelected(player: IPlayerOverview): void {
+      this.drawer.toggle();
+      this.selectedPlayer = player;
     }
 
     private setupSections(): IPositionSections[] {
