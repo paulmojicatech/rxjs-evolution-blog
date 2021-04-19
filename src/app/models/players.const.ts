@@ -9,5 +9,17 @@ export const MOCK_PLAYERS_OVERVIEW: IPlayerOverview[] = [
   {
     name: 'Steph Curry',
     position: PlayerPositionType.PG
+  },
+  {
+    name: 'James Worthy',
+    position: PlayerPositionType.SF
+  },
+  {
+    name: 'Charles Barkley',
+    position: PlayerPositionType.PF
+  },
+  {
+    name: `Shaquille O'Neal`,
+    position: PlayerPositionType.C
   }
 ]
