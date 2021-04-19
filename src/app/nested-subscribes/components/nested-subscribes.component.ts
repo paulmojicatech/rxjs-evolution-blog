@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -12,14 +12,7 @@ import { PlayerHttpService } from '../../services/player-http.service';
 })
 export class NestedSubscribesComponent implements OnInit, OnDestroy {
     topFiveForm: FormGroup;
-    positions = [
-        PlayerPositionType.PG,
-        PlayerPositionType.SG,
-        PlayerPositionType.SF,
-        PlayerPositionType.PF,
-        PlayerPositionType.C,
-    ];
-    filteredPositions: string[];
+    filteredPositions: IPositionSections[];
     players: IPlayerOverview[];
     positionSections: IPositionSections[];
 
@@ -39,18 +32,19 @@ export class NestedSubscribesComponent implements OnInit, OnDestroy {
             .valueChanges.pipe(takeUntil(this._componentDestroyed$))
             .subscribe(value => {
                 if (!!value) {
-                    this.filteredPositions = this.positions.filter(
-                        position =>
-                            position
+                    this.filteredPositions = this.positionSections.filter(
+                        section =>
+                                section.position
                                 .toLowerCase()
                                 .indexOf(value.toLowerCase()) > -1
                     );
                 } else {
-                    this.filteredPositions = this.positions;
+                    this.filteredPositions = this.positionSections;
                 }
             });
         
         this.positionSections = this.setupSections();
+        this.filteredPositions = this.setupSections();
         this.getPlayers();
     }
 
@@ -100,6 +94,6 @@ export class NestedSubscribesComponent implements OnInit, OnDestroy {
             playerOverview
           ];
         }
-      })
+      });
     }
 }
