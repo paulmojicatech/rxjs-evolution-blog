@@ -11,6 +11,9 @@ export enum PlayerPositionType {
 export interface IPlayerOverview {
   name: string;
   position: PlayerPositionType;
+  nickname: string;
+  specialty: string;
+  likes?: number;
 }
 
 export interface IPositionSections {

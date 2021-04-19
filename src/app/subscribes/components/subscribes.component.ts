@@ -9,6 +9,7 @@ import { PlayerHttpService } from '../../services/player-http.service';
 
 @Component({
     templateUrl: './subscribes.component.html',
+    styleUrls: ['./subscribes.component.scss']
 })
 export class SubscribesComponent implements OnInit, OnDestroy {
     topFiveForm: FormGroup;
