@@ -34,7 +34,7 @@ export class NestedSubscribesComponent implements OnInit, OnDestroy {
                 if (!!value) {
                     this.filteredPositions = this.positionSections.filter(
                         section =>
-                                section.position
+                            section.position
                                 .toLowerCase()
                                 .indexOf(value.toLowerCase()) > -1
                     );
@@ -42,7 +42,7 @@ export class NestedSubscribesComponent implements OnInit, OnDestroy {
                     this.filteredPositions = this.positionSections;
                 }
             });
-        
+
         this.positionSections = this.setupSections();
         this.filteredPositions = this.setupSections();
         this.getPlayers();
@@ -53,28 +53,28 @@ export class NestedSubscribesComponent implements OnInit, OnDestroy {
     }
 
     private setupSections(): IPositionSections[] {
-      return [
-      {
-        position: PlayerPositionType.PG,
-        players: []
-      },
-      {
-        position: PlayerPositionType.SG,
-        players: []
-      },
-      {
-        position: PlayerPositionType.SF,
-        players: []
-      },
-      {
-        position: PlayerPositionType.PF,
-        players: []
-      },
-      {
-        position: PlayerPositionType.C,
-        players: []
-      }
-    ];
+        return [
+            {
+                position: PlayerPositionType.PG,
+                players: [],
+            },
+            {
+                position: PlayerPositionType.SG,
+                players: [],
+            },
+            {
+                position: PlayerPositionType.SF,
+                players: [],
+            },
+            {
+                position: PlayerPositionType.PF,
+                players: [],
+            },
+            {
+                position: PlayerPositionType.C,
+                players: [],
+            },
+        ];
     }
 
     private getPlayers(): void {
@@ -82,18 +82,17 @@ export class NestedSubscribesComponent implements OnInit, OnDestroy {
             .getPlayers()
             .pipe(takeUntil(this._componentDestroyed$))
             .subscribe(players => {
-              players.forEach(player => this.addPlayerToPositionSection(player));
+                players.forEach(player =>
+                    this.addPlayerToPositionSection(player)
+                );
             });
     }
 
     private addPlayerToPositionSection(playerOverview: IPlayerOverview): void {
-      this.positionSections.forEach((section) => {
-        if (section.position === playerOverview.position) {
-          section.players = [
-            ...section.players,
-            playerOverview
-          ];
-        }
-      });
+        this.positionSections.forEach(section => {
+            if (section.position === playerOverview.position) {
+                section.players = [...section.players, playerOverview];
+            }
+        });
     }
 }
