@@ -1,7 +1,9 @@
-import { Component, OnDestroy, OnInit } from "@angular/core";
+import { AfterViewInit, Component, OnDestroy, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup } from "@angular/forms";
 import { Subject } from "rxjs";
 import { takeUntil } from "rxjs/operators";
+import { IPositionSections } from "../../models/players.interface";
+import { PlayerPositionType } from "../../models/players.interface";
 import { IPlayerOverview } from "../../models/players.interface";
 import { PlayerHttpService } from "../../services/player-http.service";
 
@@ -12,14 +14,15 @@ export class NestedSubscribesComponent implements OnInit, OnDestroy {
 
   topFiveForm: FormGroup;
   positions = [
-   'Point Guard',
-   'Shooting Guard',
-   'Small Forward',
-   'Power Guard',
-   'Center'
+   PlayerPositionType.PG,
+   PlayerPositionType.SG,
+   PlayerPositionType.SF,
+   PlayerPositionType.PF,
+   PlayerPositionType.C
   ];
   filteredPositions: string[];
   players: IPlayerOverview[];
+  positionSections: IPositionSections[];
   
   private _componentDestroyed$ = new Subject();
 
@@ -41,6 +44,7 @@ export class NestedSubscribesComponent implements OnInit, OnDestroy {
           this.filteredPositions = this.positions;
         }
       });
+      this.getPlayers();
   }
 
   ngOnDestroy(): void {
