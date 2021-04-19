@@ -13,7 +13,7 @@
   </mat-autocomplete>
   </mat-form-field>
 </form>
-
+<mat-drawer-container autosize>
 <mat-expansion-panel hideToggle *ngFor="let section of filteredPositions">
   <mat-expansion-panel-header>
     <mat-panel-title>
@@ -31,7 +31,6 @@
   </mat-list>
 </mat-expansion-panel>
 
-<mat-drawer-container autosize>
     <mat-drawer #drawer mode="side">
       <app-side-panel></app-side-panel>
     </mat-drawer>
