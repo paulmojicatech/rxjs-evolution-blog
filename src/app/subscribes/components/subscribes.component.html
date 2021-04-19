@@ -23,8 +23,10 @@
       </mat-panel-description>
     </mat-expansion-panel-header>
     <mat-list role="list">
-      <mat-list-item (click)="handlePlayerSelected(player)" role="listitem" *ngFor="let player of section.players">
-        {{player.name}}
+      <mat-list-item role="listitem" *ngFor="let player of section.players">
+        <span (click)="handlePlayerSelected(player)">{{player.name}}</span>
+        <button mat-button color="primary" (click)="handlePlayerLiked(player)">Like</button>
+        <span *ngIf="!!player.likes">{{player.likes}} likes</span>
         <mat-divider></mat-divider>
       </mat-list-item>
     </mat-list>

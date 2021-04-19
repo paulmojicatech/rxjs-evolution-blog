@@ -64,6 +64,27 @@ export class SubscribesComponent implements OnInit, OnDestroy {
       this.selectedPlayer = player;
     }
 
+    handlePlayerLiked(player: IPlayerOverview): void {
+      const updatedSections = this.filteredPositions.map(section => {
+        if (section.position === player.position) {
+          const updatedPlayers = section.players.map(sectionPlayer => {
+            if (sectionPlayer.name === player.name) {
+              return {
+                ...player,
+                likes: player.likes + 1 ?? 1
+              };
+            };
+          });
+          return {
+            ...section,
+            players: updatedPlayers
+          };
+        }
+        return section;
+      })
+      this.filteredPositions = updatedSections;
+    }
+
     private setupSections(): IPositionSections[] {
         return [
             {
