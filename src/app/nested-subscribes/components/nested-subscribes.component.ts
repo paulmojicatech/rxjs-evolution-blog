@@ -21,28 +21,7 @@ export class NestedSubscribesComponent implements OnInit, OnDestroy {
     ];
     filteredPositions: string[];
     players: IPlayerOverview[];
-    positionSections: IPositionSections[] = [
-      {
-        position: PlayerPositionType.PG,
-        players: []
-      },
-      {
-        position: PlayerPositionType.SG,
-        players: []
-      },
-      {
-        postion: PlayerPositionType.SF,
-        players: []
-      },
-      {
-        position: PlayerPositionType.PF,
-        players: []
-      },
-      {
-        position: PlayerPositionType.C,
-        players: []
-      }
-    ];
+    positionSections: IPositionSections[];
 
     private _componentDestroyed$ = new Subject();
 
@@ -71,11 +50,38 @@ export class NestedSubscribesComponent implements OnInit, OnDestroy {
                     this.filteredPositions = this.positions;
                 }
             });
+        
+        this.positionSections = this.setupSections();
         this.getPlayers();
     }
 
     ngOnDestroy(): void {
         this._componentDestroyed$.next();
+    }
+
+    private setupSections(): IPositionSections[] {
+      return [
+      {
+        position: PlayerPositionType.PG,
+        players: []
+      },
+      {
+        position: PlayerPositionType.SG,
+        players: []
+      },
+      {
+        position: PlayerPositionType.SF,
+        players: []
+      },
+      {
+        position: PlayerPositionType.PF,
+        players: []
+      },
+      {
+        position: PlayerPositionType.C,
+        players: []
+      }
+    ];
     }
 
     private getPlayers(): void {
@@ -89,12 +95,10 @@ export class NestedSubscribesComponent implements OnInit, OnDestroy {
 
     private addPlayerToPositionSection(playerOverview: IPlayerOverview): void {
       const sectionToAddPlayerTo = this.positionSections
-        .find(section => section.position === playerOverview.position)
-        .filter(section => {
-          return section.players.lastIndexOf(player => player.name !== playerOverview.name);
-        });
-      if (!sectionToAddPlayerTo?.length) {
-        const updatedSectionIndex = this.positionSections.findIndex(section => section.position === sectionToAddPlayerTo.section);
+      .filter(section => section.position === playerOverview.position)
+      .find(section => section.position === playerOverview.position)
+      if (!sectionToAddPlayerTo) {
+        const updatedSectionIndex = this.positionSections.findIndex(section => section.position === sectionToAddPlayerTo.position);
         const updatedSection = this.positionSections[updatedSectionIndex];
         this.positionSections[updatedSectionIndex] = {
           ...updatedSection,

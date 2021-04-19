@@ -13,13 +13,13 @@
   </mat-form-field>
 </form>
 
-<mat-expansion-panel hideToggle>
+<mat-expansion-panel hideToggle *ngFor="let section of positionSections">
   <mat-expansion-panel-header>
     <mat-panel-title>
-      Point Guards
+      {{section.position}}
     </mat-panel-title>
     <mat-panel-description>
-      Pick the best Point Guar to ever do it
+      Pick the best to ever do it
     </mat-panel-description>
   </mat-expansion-panel-header>
   <mat-list role="list">
