@@ -83,6 +83,7 @@ export class SubscribesComponent implements OnInit, OnDestroy {
         return section;
       })
       this.filteredPositions = updatedSections;
+      this.positionSections = updatedSections;
     }
 
     private setupSections(): IPositionSections[] {
