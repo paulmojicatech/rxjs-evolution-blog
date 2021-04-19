@@ -1,4 +1,3 @@
-
 <form novalidate [formGroup]="topFiveForm">
   <mat-form-field>
     <mat-label>Position</mat-label>
@@ -6,32 +5,32 @@
       formControlName="position"
       matInput
       [matAutocomplete]="auto"/>
-  <mat-autocomplete #auto="matAutocomplete">
-    <mat-option *ngFor="let section of filteredPositions" [value]="section.position">
-      {{section.position}}
-    </mat-option>
-  </mat-autocomplete>
+    <mat-autocomplete #auto="matAutocomplete">
+      <mat-option *ngFor="let section of filteredPositions" [value]="section.position">
+        {{section.position}}
+      </mat-option>
+    </mat-autocomplete>
   </mat-form-field>
 </form>
 <mat-drawer-container autosize>
-<mat-expansion-panel hideToggle *ngFor="let section of filteredPositions">
-  <mat-expansion-panel-header>
-    <mat-panel-title>
-      {{section.position}}
-    </mat-panel-title>
-    <mat-panel-description>
-      Pick the best to ever do it
-    </mat-panel-description>
-  </mat-expansion-panel-header>
-  <mat-list role="list">
-    <mat-list-item (click)="drawer.toggle()" role="listitem" *ngFor="let player of section.players">
-      {{player.name}}
-      <mat-divider></mat-divider>
-    </mat-list-item>
-  </mat-list>
-</mat-expansion-panel>
+  <mat-expansion-panel hideToggle *ngFor="let section of filteredPositions">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        {{section.position}}
+      </mat-panel-title>
+      <mat-panel-description>
+        Pick the best to ever do it
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <mat-list role="list">
+      <mat-list-item (click)="drawer.toggle()" role="listitem" *ngFor="let player of section.players">
+        {{player.name}}
+        <mat-divider></mat-divider>
+      </mat-list-item>
+    </mat-list>
+  </mat-expansion-panel>
 
-    <mat-drawer #drawer mode="side">
-      <app-side-panel></app-side-panel>
-    </mat-drawer>
+  <mat-drawer #drawer mode="side">
+    <app-side-panel></app-side-panel>
+  </mat-drawer>
 </mat-drawer-container>
