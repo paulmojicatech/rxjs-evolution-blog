@@ -44,7 +44,6 @@ export class SubscribesComponent implements OnInit, OnDestroy {
             });
 
         this.positionSections = this.setupSections();
-        this.filteredPositions = this.setupSections();
         this.getPlayers();
     }
 
@@ -85,6 +84,7 @@ export class SubscribesComponent implements OnInit, OnDestroy {
                 players.forEach(player =>
                     this.addPlayerToPositionSection(player)
                 );
+                this.filteredPositions = this.positionSections;
             });
     }
 
