@@ -71,7 +71,7 @@ export class SubscribesComponent implements OnInit, OnDestroy {
             if (sectionPlayer.name === player.name) {
               return {
                 ...player,
-                likes: player.likes + 1 ?? 1
+                likes: player.likes + 1
               };
             };
           });
