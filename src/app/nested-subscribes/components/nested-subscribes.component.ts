@@ -38,7 +38,6 @@ export class NestedSubscribesComponent implements OnInit, OnDestroy {
             .get('position')
             .valueChanges.pipe(takeUntil(this._componentDestroyed$))
             .subscribe(value => {
-                console.log('VALUE', value);
                 if (!!value) {
                     this.filteredPositions = this.positions.filter(
                         position =>
@@ -94,19 +93,13 @@ export class NestedSubscribesComponent implements OnInit, OnDestroy {
     }
 
     private addPlayerToPositionSection(playerOverview: IPlayerOverview): void {
-      const sectionToAddPlayerTo = this.positionSections
-      .filter(section => section.position === playerOverview.position)
-      .find(section => section.position === playerOverview.position)
-      if (!sectionToAddPlayerTo) {
-        const updatedSectionIndex = this.positionSections.findIndex(section => section.position === sectionToAddPlayerTo.position);
-        const updatedSection = this.positionSections[updatedSectionIndex];
-        this.positionSections[updatedSectionIndex] = {
-          ...updatedSection,
-          players: [
-            ...updatedSection.players,
+      this.positionSections.forEach((section) => {
+        if (section.position === playerOverview.position) {
+          section.players = [
+            ...section.players,
             playerOverview
-          ]
-        };
-      }
+          ];
+        }
+      })
     }
 }
