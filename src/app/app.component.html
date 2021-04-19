@@ -1,1 +1,14 @@
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+      Pick Your 5
+  </mat-toolbar-row>
+</mat-toolbar>
+<button [matMenuTriggerFor]="menu" mat-button color="primary">
+  Stages of Evolution
+</button>
+<mat-menu #menu="matMenu">
+  <button routerLink="" mat-menu-item>
+    Subscribe to all the things
+  </button>
+</mat-menu>
 <router-outlet></router-outlet>

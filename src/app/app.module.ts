@@ -4,18 +4,31 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { Route, RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatButtonModule } from '@angular/material/button';
 
 const routes: Route[] = [
-  {
-    path: '',
-    pathMatch: 'full',
-    loadChildren: () => import('./nested-subscribes/nested-subscribes.module').then(m => m.NestedSubscribesModule)
-  }
-]
+    {
+        path: '',
+        pathMatch: 'full',
+        loadChildren: () =>
+            import('./nested-subscribes/nested-subscribes.module').then(
+                m => m.NestedSubscribesModule
+            ),
+    },
+];
 
 @NgModule({
-  imports:      [ BrowserModule,BrowserAnimationsModule, RouterModule.forRoot(routes) ],
-  declarations: [ AppComponent ],
-  bootstrap:    [ AppComponent ]
+    imports: [
+        BrowserModule,
+        BrowserAnimationsModule,
+        RouterModule.forRoot(routes),
+        MatToolbarModule,
+        MatMenuModule,
+        MatButtonModule
+    ],
+    declarations: [AppComponent],
+    bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
