@@ -16,6 +16,7 @@ export class SubscribesComponent implements OnInit, OnDestroy {
     filteredPositions: IPositionSections[];
     players: IPlayerOverview[];
     positionSections: IPositionSections[];
+    showSidePanel = false;
 
     private _componentDestroyed$ = new Subject();
 

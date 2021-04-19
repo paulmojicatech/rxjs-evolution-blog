@@ -6,6 +6,7 @@ import { MatExpansionModule } from "@angular/material/expansion";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
 import { MatListModule } from "@angular/material/list";
+import { MatSidenavModule } from "@angular/material/sidenav";
 import { Route, RouterModule } from "@angular/router";
 import { SidePanelModule } from "../../shared-components/side-panel/side-panel.module";
 import { SubscribesComponent } from "./components/subscribes.component";
@@ -29,6 +30,7 @@ const routes: Route[] = [
     MatAutocompleteModule,
     MatInputModule,
     MatExpansionModule,
+    MatSidenavModule,
     SidePanelModule
   ],
   declarations: [

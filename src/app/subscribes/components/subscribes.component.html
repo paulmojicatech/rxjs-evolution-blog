@@ -24,9 +24,15 @@
     </mat-panel-description>
   </mat-expansion-panel-header>
   <mat-list role="list">
-    <mat-list-item role="listitem" *ngFor="let player of section.players">
+    <mat-list-item (click)="drawer.toggle()" role="listitem" *ngFor="let player of section.players">
       {{player.name}}
       <mat-divider></mat-divider>
     </mat-list-item>
   </mat-list>
 </mat-expansion-panel>
+
+<mat-drawer-container autosize>
+    <mat-drawer #drawer mode="side">
+      <app-side-panel></app-side-panel>
+    </mat-drawer>
+</mat-drawer-container>
