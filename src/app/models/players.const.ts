@@ -15,7 +15,31 @@ export const MOCK_PLAYERS_OVERVIEW: IPlayerOverview[] = [
     position: PlayerPositionType.PG,
     details: {
       nickname: 'Chef Curry',
-      specialty: 'Handles'
+      specialty: 'Handles, Sharp Shooter'
+    }
+  },
+  {
+    name: 'Kobe Bryant',
+    position: PlayerPositionType.SG,
+    details: {
+      nickname: 'Black Mamba',
+      specialty: 'Closer, Competitor, High IQ'
+    }
+  },
+  {
+    name: 'LeBron James',
+    position: PlayerPositionType.SF,
+    details: {
+      nickname: 'King James',
+      specialty: 'All Around, High IQ'
+    }
+  },
+  {
+    name: 'Michael Jordan',
+    position: PlayerPositionType.SG,
+    details: {
+      nickname: 'His Airness',
+      specialty: 'GOAT, Closer, High IQ'
     }
   },
   {
@@ -40,6 +64,22 @@ export const MOCK_PLAYERS_OVERVIEW: IPlayerOverview[] = [
     details: {
       nickname: 'Shaq Diesel',
       specialty: 'Powerhouse'
+    }
+  },
+  {
+    name: 'Dirk Nowitski',
+    position: PlayerPositionType.PF,
+    details: {
+      nickname: '',
+      specialty: 'Sharp Shooter, Scorer'
+    }
+  },
+  {
+    name: 'Earvin Johnson',
+    position: PlayerPositionType.PG,
+    details: {
+      nickname: 'Magic',
+      specialty: 'Floor General, High IQ'
     }
   }
 ]
