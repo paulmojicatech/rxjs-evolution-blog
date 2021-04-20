@@ -1,4 +1,10 @@
-<div>
-  Name: {{ player?.name }}
-
+<div class="panel-container">
+  <div>Name: {{ player?.name }}</div>
+  <div>Position: {{ player?.position }}</div>
+  <div>Nickname: {{ player?.details?.nickname }}</div>
+  <div>Specialty: {{ player?.details?.specialty }}</div>
+  <div *ngIf="!!player?.likes; else noLikes">{{ player?.likes }} likes</div>
+  <ng-template #noLikes>
+    <div>0 likes</div>
+  </ng-template>
 </div>
