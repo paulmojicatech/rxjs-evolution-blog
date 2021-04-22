@@ -4,9 +4,9 @@ import { Pipe, PipeTransform } from "@angular/core";
   name: 'pmtListFilter'
 })
 export class PmtListFilterPipe implements PipeTransform {
-  transform(originalList: string[], searchFilter: string): any[] {
+  transform(originalList: any[], propertyToFilterOn: string, searchFilter: string): any[] {
     return !!searchFilter ?
-      originalList.filter(item => item.toLowerCase().lastIndexOf(searchFilter.toLowerCase()) > -1) :
+      originalList.filter(item => item[propertyToFilterOn].toLowerCase().lastIndexOf(searchFilter.toLowerCase()) > -1) :
       originalList;
   }
 }
