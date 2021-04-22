@@ -9,6 +9,7 @@ import { MatInputModule } from "@angular/material/input";
 import { MatListModule } from "@angular/material/list";
 import { MatSidenavModule } from "@angular/material/sidenav";
 import { Route, RouterModule } from "@angular/router";
+import { PmtSharedComponentsModule } from "../../shared-components/shared-components.module";
 import { SidePanelModule } from "../../shared-components/side-panel/side-panel.module";
 import { SubscribesComponent } from "./components/subscribes.component";
 
@@ -33,7 +34,8 @@ const routes: Route[] = [
     MatExpansionModule,
     MatSidenavModule,
     MatButtonModule,
-    SidePanelModule
+    SidePanelModule,
+    PmtSharedComponentsModule
   ],
   declarations: [
     SubscribesComponent

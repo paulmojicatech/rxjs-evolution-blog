@@ -13,4 +13,4 @@ import { PmtListFilterPipe } from "./pipes/list-filter.pipe";
     PmtListFilterPipe
   ]
 })
-export class PmtSharedComponents {}
+export class PmtSharedComponentsModule {}

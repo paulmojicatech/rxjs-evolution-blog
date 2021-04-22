@@ -18,11 +18,11 @@ export class SubscribesComponent implements OnInit, OnDestroy {
     drawer: MatDrawer;
 
     topFiveForm: FormGroup;
-    filteredPositions: IPositionSections[];
     players: IPlayerOverview[];
     positionSections: IPositionSections[];
     selectedPlayer: IPlayerOverview;
     showSidePanel = false;
+    searchFilter: string;
 
     private _componentDestroyed$ = new Subject();
 
@@ -39,16 +39,7 @@ export class SubscribesComponent implements OnInit, OnDestroy {
             .get('position')
             .valueChanges.pipe(takeUntil(this._componentDestroyed$))
             .subscribe(value => {
-                if (!!value) {
-                    this.filteredPositions = this.positionSections.filter(
-                        section =>
-                            section.position
-                                .toLowerCase()
-                                .indexOf(value.toLowerCase()) > -1
-                    );
-                } else {
-                    this.filteredPositions = this.positionSections;
-                }
+                this.searchFilter = value;
             });
 
         this.positionSections = this.setupSections();
@@ -65,7 +56,7 @@ export class SubscribesComponent implements OnInit, OnDestroy {
     }
 
     handlePlayerLiked(player: IPlayerOverview): void {
-      const updatedSections = this.filteredPositions.map(section => {
+      const updatedSections = this.positionSections.map(section => {
         if (section.position === player.position) {
           const updatedPlayers = section.players.map(sectionPlayer => {
             if (sectionPlayer.name === player.name) {
@@ -82,7 +73,6 @@ export class SubscribesComponent implements OnInit, OnDestroy {
         }
         return section;
       })
-      this.filteredPositions = updatedSections;
       this.positionSections = updatedSections;
     }
 
@@ -122,7 +112,6 @@ export class SubscribesComponent implements OnInit, OnDestroy {
                     });
                     
                 });
-                this.filteredPositions = this.positionSections;
             });
     }
 
