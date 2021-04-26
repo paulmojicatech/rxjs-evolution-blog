@@ -25,3 +25,7 @@ export interface IPositionSections {
   position: PlayerPositionType;
   players: IPlayerOverview[];
 }
+
+export interface IBehaviorSubjectViewModel {
+  positionSections: IPositionSections[];
+}

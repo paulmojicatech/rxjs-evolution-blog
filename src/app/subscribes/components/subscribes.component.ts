@@ -18,7 +18,6 @@ export class SubscribesComponent implements OnInit, OnDestroy {
     drawer: MatDrawer;
 
     topFiveForm: FormGroup;
-    players: IPlayerOverview[];
     positionSections: IPositionSections[];
     selectedPlayer: IPlayerOverview;
     showSidePanel = false;
