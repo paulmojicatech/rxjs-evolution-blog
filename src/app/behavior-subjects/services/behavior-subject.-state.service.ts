@@ -4,7 +4,7 @@ import { IBehaviorSubjectViewModel, IPlayerOverview, IPositionSections, PlayerPo
 import { PlayerHttpService } from "../../services/player-http.service";
 
 @Injectable()
-export class BehaviorSubjectService {
+export class BehaviorSubjectStateService {
 
   private _viewModelSub$ = new Subject<IBehaviorSubjectViewModel>();
   viewModel$ = this._viewModelSub$.asObservable();
