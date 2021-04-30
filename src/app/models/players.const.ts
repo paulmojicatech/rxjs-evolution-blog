@@ -81,5 +81,21 @@ export const MOCK_PLAYERS_OVERVIEW: IPlayerOverview[] = [
       nickname: 'Magic',
       specialty: 'Floor General, High IQ'
     }
+  },
+  {
+    name: 'Wilt Chamberlain',
+    position: PlayerPositionType.C,
+    details: {
+      nickname: 'Wilt the Stilt',
+      specialty: 'Scorer'
+    }
+  },
+  {
+    name: 'Pete Maravich',
+    position: PlayerPositionType.PG,
+    details: {
+      nickname: 'Pistol Pete',
+      specialty: 'Flashy, Handles, Court Vision'
+    }
   }
 ]
