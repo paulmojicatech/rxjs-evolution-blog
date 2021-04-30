@@ -1,12 +1,16 @@
 import { Injectable } from "@angular/core";
-import { Observable, Subject } from "rxjs";
+import { BehaviorSubject, Observable } from "rxjs";
 import { IBehaviorSubjectViewModel, IPlayerOverview, IPositionSections, PlayerPositionType } from "../../models/players.interface";
 import { PlayerHttpService } from "../../services/player-http.service";
 
 @Injectable()
 export class BehaviorSubjectStateService {
 
-  private _viewModelSub$ = new Subject<IBehaviorSubjectViewModel>();
+  readonly INITIAL_STATE: IBehaviorSubjectViewModel = {
+    positionSections: []
+  };
+
+  private _viewModelSub$ = new BehaviorSubject<IBehaviorSubjectViewModel>(this.INITIAL_STATE);
   viewModel$ = this._viewModelSub$.asObservable();
 
   constructor(private _playerHttpSvc: PlayerHttpService){ }
