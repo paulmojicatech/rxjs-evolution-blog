@@ -10,6 +10,10 @@ import { MatButtonModule } from '@angular/material/button';
 
 const routes: Route[] = [
     {
+      path: 'behavior-subject',
+      loadChildren: () => import('./behavior-subjects/behavior-subjects.module').then(m => m.BehaviorSubjectModule)
+    },
+    {
         path: '',
         pathMatch: 'full',
         loadChildren: () =>

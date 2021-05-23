@@ -1,0 +1,43 @@
+<div *ngIf="viewModel$ | async as viewModel">
+
+  <form novalidate [formGroup]="topFiveForm">
+    <mat-form-field>
+      <mat-label>Position</mat-label>
+      <input
+      formControlName="position"
+      matInput
+      [matAutocomplete]="auto"/>
+      <mat-autocomplete #auto="matAutocomplete">
+        <mat-option *ngFor="let section of viewModel.positionSections | pmtListFilter:'position':searchFilter"
+          [value]="section.position">
+          {{section.position}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+  </form>
+  <mat-drawer-container autosize [hasBackdrop]="true">
+    <mat-expansion-panel hideToggle *ngFor="let section of viewModel.positionSections | pmtListFilter:'position':searchFilter">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          {{section.position}}
+        </mat-panel-title>
+        <mat-panel-description>
+          Pick the best to ever do it
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <mat-list role="list">
+        <mat-list-item role="listitem" *ngFor="let player of section.players">
+          <span (click)="handlePlayerSelected(player)">{{player.name}}</span>
+          <button mat-button color="primary" (click)="handlePlayerLiked(player)">Like</button>
+          <span *ngIf="!!player.likes">{{player.likes}} likes</span>
+          <mat-divider></mat-divider>
+        </mat-list-item>
+      </mat-list>
+    </mat-expansion-panel>
+
+    <mat-drawer #drawer mode="side">
+      <app-side-panel [player]="selectedPlayer"></app-side-panel>
+    </mat-drawer>
+  </mat-drawer-container>
+
+</div>

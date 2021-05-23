@@ -1,11 +1,22 @@
-import { Component } from "@angular/core";
-import { BehaviorSubjectService } from "../services/behavior-subject.service";
+import { Component, OnInit } from "@angular/core";
+import { Observable } from "rxjs";
+import { IBehaviorSubjectViewModel } from "../../models/players.interface";
+import { BehaviorSubjectStateService } from "../services/behavior-subject.-state.service";
 
 @Component({
   templateUrl: './behavior-subject.component.html',
   providers: [
-    BehaviorSubjectService
+    BehaviorSubjectStateService
   ]
 })
 
-export class BehaviorSubjectComponent{}
+export class BehaviorSubjectComponent implements OnInit{
+
+  viewModel$: Observable<IBehaviorSubjectViewModel>;
+
+  constructor(private _behaviorSubjectStateService: BehaviorSubjectStateService){}
+
+  ngOnInit(): void {
+    this.viewModel$ = this._behaviorSubjectStateService.getViewModel();
+  }
+}
