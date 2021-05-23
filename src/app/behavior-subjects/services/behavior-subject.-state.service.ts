@@ -20,6 +20,10 @@ export class BehaviorSubjectStateService {
     return this.viewModel$;
   }
 
+  loadPlayerDetails(playerName: string): void {
+    
+  }
+
   private setupSections(): IPositionSections[] {
     return [
       {
@@ -109,23 +113,6 @@ export class BehaviorSubjectStateService {
       }),
 
     )
-  }
-
-  private addPlayerDetails(position: IPositionSections): Observable<IPositionSections> {
-    const updatedPosition$ = position.players.map(player => {
-      const playerDetails$: Observable<IPositionSections> = this._playerHttpSvc.getPlayerDetails(player).pipe(
-        map(playerDetails => {
-          const updatedPlayerIndex = position.players.findIndex(playerInstance => playerInstance.name === playerDetails.name);
-          position.players[updatedPlayerIndex] = playerDetails;
-          return {
-            ...position,
-            players: position.players
-          };
-        })
-      );
-      return playerDetails$;
-    })[0]
-    return updatedPosition$;
   }
 
 
