@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { BehaviorSubject, Observable, of } from "rxjs";
+import { BehaviorSubject, merge, Observable, of, Subject } from "rxjs";
 import { first, map, mergeMap, switchMap, tap } from "rxjs/operators";
 import { IBehaviorSubjectViewModel, IPlayerOverview, IPositionSections, PlayerPositionType } from "../../models/players.interface";
 import { PlayerHttpService } from "../../services/player-http.service";
@@ -17,39 +17,17 @@ export class BehaviorSubjectStateService {
   constructor(private _playerHttpSvc: PlayerHttpService){ }
 
   getViewModel(): Observable<IBehaviorSubjectViewModel> {
-    return this.viewModel$;
+    const initialViewModel$: Observable<IBehaviorSubjectViewModel> = this.getPositionsStream().pipe(
+      map(positionSections => ({ positionSections }))
+    );
+    return merge(this.viewModel$, initialViewModel$);
   }
 
   loadPlayerDetails(playerName: string): void {
     
   }
 
-  private setupSections(): IPositionSections[] {
-    return [
-      {
-        position: PlayerPositionType.PG,
-        players: [],
-      },
-      {
-        position: PlayerPositionType.SG,
-        players: [],
-      },
-      {
-        position: PlayerPositionType.SF,
-        players: [],
-      },
-      {
-        position: PlayerPositionType.PF,
-        players: [],
-      },
-      {
-        position: PlayerPositionType.C,
-        players: [],
-      },
-    ];
-  }
-
-  private getPlayers(): Observable<IPositionSections[]> {
+  private getPositionsStream(): Observable<IPositionSections[]> {
     return this._playerHttpSvc.getPlayers().pipe(
       map(players => {
         let positions: IPositionSections[] = [];
@@ -111,9 +89,23 @@ export class BehaviorSubjectStateService {
         })
         return positions;
       }),
-
+      switchMap(positions => this.addPlayerToPositionSection(positions))
     )
   }
-
+  
+  private addPlayerToPositionSection(positionSections: IPositionSections[]): Observable<IPositionSections[]> {
+      const updatedPositions$ = new Subject<IPositionSections[]>();
+      positionSections.forEach((position, positionIndex) => {
+        position.players.forEach((player, playerIndex) => {
+          this._playerHttpSvc.getPlayerDetails(player).pipe(
+            tap(playerDetails => {
+              positionSections[positionIndex][playerIndex] = playerDetails;
+              updatedPositions$.next(positionSections)
+            })
+          );
+        });
+      });
+      return updatedPositions$.asObservable();
+    }
 
 }
