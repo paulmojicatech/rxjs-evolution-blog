@@ -1,5 +1,3 @@
-import { PlayerHttpService } from "../services/player-http.service";
-
 export enum PlayerPositionType {
   PG = 'Point Guard',
   SG = 'Shooting Guard',
