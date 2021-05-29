@@ -11,12 +11,22 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { BehaviorSubjectComponent } from "./components/behavior-subject.component";
 import { PmtSharedComponentsModule } from '../../shared-components/shared-components.module';
 import { SidePanelModule } from '../../shared-components/side-panel/side-panel.module';
+import { Route, RouterModule } from "@angular/router";
+
+const routes: Route[] = [
+  {
+    path: '',
+    pathMatch: 'full',
+    component: BehaviorSubjectComponent
+  }
+];
 
 
 @NgModule({
   imports: [
     CommonModule,
     ReactiveFormsModule,
+    RouterModule.forChild(routes),
     MatFormFieldModule,
     MatButtonModule,
     MatExpansionModule,
