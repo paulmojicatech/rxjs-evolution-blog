@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { BehaviorSubject, merge, Observable, of, Subject } from "rxjs";
-import { first, map, mergeMap, switchMap, take, tap } from "rxjs/operators";
+import { first, map, mergeMap, publish, switchMap, take, tap } from "rxjs/operators";
 import { IBehaviorSubjectViewModel, IPlayerOverview, IPositionSections, PlayerPositionType } from "../../models/players.interface";
 import { PlayerHttpService } from "../../services/player-http.service";
 
@@ -25,6 +25,14 @@ export class BehaviorSubjectStateService {
         this._viewModelSub$.next(viewModel);
       })
     );
+    // const playerDetails$ = publish()(initialViewModel$.pipe(
+    //   switchMap(viewModel => {
+    //     const positionWithPlayers$ = viewModel.positionSections.map(position => {
+    //       return this.a
+    //     })
+    //   })
+    // ))
+
     return merge(this.viewModel$, initialViewModel$);
   }
 
@@ -95,6 +103,10 @@ export class BehaviorSubjectStateService {
         return positions;
       })
     )
+  }
+
+  private addPlayerDetailsToPosition(position: IPositionSections): Observable<IPositionSections> {
+    return null;
   }
 
 }
