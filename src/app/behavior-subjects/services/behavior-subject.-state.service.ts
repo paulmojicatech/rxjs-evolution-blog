@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { BehaviorSubject, merge, Observable, of, Subject } from "rxjs";
-import { first, map, mergeMap, switchMap, tap } from "rxjs/operators";
+import { first, map, mergeMap, switchMap, take, tap } from "rxjs/operators";
 import { IBehaviorSubjectViewModel, IPlayerOverview, IPositionSections, PlayerPositionType } from "../../models/players.interface";
 import { PlayerHttpService } from "../../services/player-http.service";
 
@@ -103,9 +103,11 @@ export class BehaviorSubjectStateService {
             tap(playerDetails => {
               positionSections[positionIndex][playerIndex] = playerDetails;
               updatedPositions$.next(positionSections)
-            })
-          );
+            }),
+            take(1)
+          ).subscribe();
         });
+        
       });
       return updatedPositions$.asObservable();
     }
