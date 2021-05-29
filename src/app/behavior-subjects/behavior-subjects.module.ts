@@ -7,7 +7,11 @@ import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
 import { MatListModule } from "@angular/material/list";
 import { MatSidenavModule } from "@angular/material/sidenav";
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { BehaviorSubjectComponent } from "./components/behavior-subject.component";
+import { PmtSharedComponentsModule } from '../../shared-components/shared-components.module';
+import { SidePanelModule } from '../../shared-components/side-panel/side-panel.module';
+
 
 @NgModule({
   imports: [
@@ -18,10 +22,13 @@ import { BehaviorSubjectComponent } from "./components/behavior-subject.componen
     MatExpansionModule,
     MatInputModule,
     MatListModule,
-    MatSidenavModule
+    MatSidenavModule,
+    MatAutocompleteModule,
+    PmtSharedComponentsModule,
+    SidePanelModule,
   ],
   declarations: [
     BehaviorSubjectComponent
   ]
 })
-export class BehaviorSubjectModule {}
+export class BehaviorSubjectModule { }
