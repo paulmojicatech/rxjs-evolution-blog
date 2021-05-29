@@ -33,9 +33,9 @@ export class BehaviorSubjectStateService {
     return this._playerHttpSvc.getPlayers().pipe(
       map(players => {
         let positions: IPositionSections[] = [];
-        Object.keys(PlayerPositionType).forEach(positionType => {
+        for (const positionType in PlayerPositionType) {
           switch (positionType) {
-            case PlayerPositionType.PG:
+            case 'PG':
               const pointGuards = players.filter(player => player.position === PlayerPositionType.PG);
               positions = [
                 ...positions,
@@ -45,7 +45,7 @@ export class BehaviorSubjectStateService {
                 }
               ];
               break;
-            case PlayerPositionType.SG:
+            case 'SG':
               const shootingGuards = players.filter(player => player.position === PlayerPositionType.SG);
               positions = [
                 ...positions,
@@ -55,7 +55,7 @@ export class BehaviorSubjectStateService {
                 }
               ];
               break;
-            case PlayerPositionType.SF:
+            case 'SF':
               const smallForwards = players.filter(player => player.position === PlayerPositionType.SF);
               positions = [
                 ...positions,
@@ -65,7 +65,7 @@ export class BehaviorSubjectStateService {
                 }
               ];
               break;
-            case PlayerPositionType.PF:
+            case 'PF':
               const powerForwards = players.filter(player => player.position === PlayerPositionType.PF);
               positions = [
                 ...positions,
@@ -75,7 +75,7 @@ export class BehaviorSubjectStateService {
                 }
               ];
               break;
-            case PlayerPositionType.C:
+            case 'C':
               const centers = players.filter(player => player.position === PlayerPositionType.C);
               positions = [
                 ...positions,
@@ -88,7 +88,7 @@ export class BehaviorSubjectStateService {
             default:
               break;
           }
-        })
+        }
         return positions;
       }),
       switchMap(positions => this.addPlayerToPositionSection(positions))
