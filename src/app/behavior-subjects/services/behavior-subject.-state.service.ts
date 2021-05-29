@@ -8,7 +8,8 @@ import { PlayerHttpService } from "../../services/player-http.service";
 export class BehaviorSubjectStateService {
 
   readonly INITIAL_STATE: IBehaviorSubjectViewModel = {
-    positionSections: []
+    positionSections: [],
+    searchFilter: ''
   };
 
   private _viewModelSub$ = new BehaviorSubject<IBehaviorSubjectViewModel>(this.INITIAL_STATE);
@@ -18,7 +19,7 @@ export class BehaviorSubjectStateService {
 
   getViewModel(): Observable<IBehaviorSubjectViewModel> {
     const initialViewModel$: Observable<IBehaviorSubjectViewModel> = this.getPositionsStream().pipe(
-      map(positionSections => ({ positionSections }))
+      map(positionSections => ({ positionSections, searchFilter: '' }))
     );
     return merge(this.viewModel$, initialViewModel$);
   }

@@ -26,4 +26,5 @@ export interface IPositionSections {
 
 export interface IBehaviorSubjectViewModel {
   positionSections: IPositionSections[];
+  searchFilter: string;
 }

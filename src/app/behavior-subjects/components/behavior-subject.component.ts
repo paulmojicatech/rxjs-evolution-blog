@@ -1,4 +1,5 @@
 import { Component, OnInit } from "@angular/core";
+import { FormGroup, FormBuilder } from '@angular/forms';
 import { Observable } from "rxjs";
 import { IBehaviorSubjectViewModel } from "../../models/players.interface";
 import { BehaviorSubjectStateService } from "../services/behavior-subject.-state.service";
@@ -13,10 +14,14 @@ import { BehaviorSubjectStateService } from "../services/behavior-subject.-state
 export class BehaviorSubjectComponent implements OnInit{
 
   viewModel$: Observable<IBehaviorSubjectViewModel>;
+  topFiveForm: FormGroup;
 
-  constructor(private _behaviorSubjectStateService: BehaviorSubjectStateService){}
+  constructor(private _fb: FormBuilder, private _behaviorSubjectStateService: BehaviorSubjectStateService){}
 
   ngOnInit(): void {
     this.viewModel$ = this._behaviorSubjectStateService.getViewModel();
+    this.topFiveForm = this._fb.group({
+            position: [null],
+        });
   }
 }
