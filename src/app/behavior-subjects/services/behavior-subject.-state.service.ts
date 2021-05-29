@@ -9,7 +9,8 @@ export class BehaviorSubjectStateService {
 
   readonly INITIAL_STATE: IBehaviorSubjectViewModel = {
     positionSections: [],
-    searchFilter: ''
+    searchFilter: '',
+    selectedPlayer: null
   };
 
   private _viewModelSub$ = new BehaviorSubject<IBehaviorSubjectViewModel>(this.INITIAL_STATE);
@@ -19,7 +20,7 @@ export class BehaviorSubjectStateService {
 
   getViewModel(): Observable<IBehaviorSubjectViewModel> {
     const initialViewModel$: Observable<IBehaviorSubjectViewModel> = this.getPositionsStream().pipe(
-      map(positionSections => ({ positionSections, searchFilter: '' }))
+      map(positionSections => ({ ...this.INITIAL_STATE, positionSections }))
     );
     return merge(this.viewModel$, initialViewModel$);
   }

@@ -16,7 +16,7 @@
     </mat-form-field>
   </form>
   <mat-drawer-container autosize [hasBackdrop]="true">
-    <mat-expansion-panel hideToggle *ngFor="let section of viewModel.positionSections | pmtListFilter:'position':searchFilter">
+    <mat-expansion-panel hideToggle *ngFor="let section of viewModel.positionSections | pmtListFilter:'position':viewModel.searchFilter">
       <mat-expansion-panel-header>
         <mat-panel-title>
           {{section.position}}
@@ -36,7 +36,7 @@
     </mat-expansion-panel>
 
     <mat-drawer #drawer mode="side">
-      <app-side-panel [player]="selectedPlayer"></app-side-panel>
+      <app-side-panel [player]="viewModel.selectedPlayer"></app-side-panel>
     </mat-drawer>
   </mat-drawer-container>
 

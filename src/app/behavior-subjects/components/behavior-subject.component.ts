@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { Observable } from "rxjs";
-import { IBehaviorSubjectViewModel } from "../../models/players.interface";
+import { IBehaviorSubjectViewModel, IPlayerOverview } from "../../models/players.interface";
 import { BehaviorSubjectStateService } from "../services/behavior-subject.-state.service";
 
 @Component({
@@ -24,4 +24,14 @@ export class BehaviorSubjectComponent implements OnInit{
             position: [null],
         });
   }
+
+  handlePlayerSelected(player: IPlayerOverview): void {
+
+  }
+
+  handlePlayerLiked(player: IPlayerOverview): void {
+    
+  }
+
+
 }
