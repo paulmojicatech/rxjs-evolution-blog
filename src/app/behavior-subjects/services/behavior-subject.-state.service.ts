@@ -20,7 +20,10 @@ export class BehaviorSubjectStateService {
 
   getViewModel(): Observable<IBehaviorSubjectViewModel> {
     const initialViewModel$: Observable<IBehaviorSubjectViewModel> = this.getPositionsStream().pipe(
-      map(positionSections => ({ ...this.INITIAL_STATE, positionSections }))
+      map(positionSections => ({ ...this.INITIAL_STATE, positionSections })),
+      tap(viewModel => {
+        this._viewModelSub$.next(viewModel);
+      })
     );
     return merge(this.viewModel$, initialViewModel$);
   }
@@ -90,26 +93,8 @@ export class BehaviorSubjectStateService {
           }
         }
         return positions;
-      }),
-      switchMap(positions => this.addPlayerToPositionSection(positions))
+      })
     )
   }
-  
-  private addPlayerToPositionSection(positionSections: IPositionSections[]): Observable<IPositionSections[]> {
-      const updatedPositions$ = new Subject<IPositionSections[]>();
-      positionSections.forEach((position, positionIndex) => {
-        position.players.forEach((player, playerIndex) => {
-          this._playerHttpSvc.getPlayerDetails(player).pipe(
-            tap(playerDetails => {
-              positionSections[positionIndex][playerIndex] = playerDetails;
-              updatedPositions$.next(positionSections)
-            }),
-            take(1)
-          ).subscribe();
-        });
-        
-      });
-      return updatedPositions$.asObservable();
-    }
 
 }
