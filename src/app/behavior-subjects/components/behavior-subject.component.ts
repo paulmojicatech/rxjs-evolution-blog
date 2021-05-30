@@ -36,7 +36,7 @@ export class BehaviorSubjectComponent implements OnInit{
   }
 
   handlePlayerLiked(player: IPlayerOverview): void {
-    
+    this._behaviorSubjectStateService.incrementPlayerLiked(player);
   }
 
 

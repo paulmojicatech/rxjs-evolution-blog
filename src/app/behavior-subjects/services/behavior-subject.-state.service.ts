@@ -53,7 +53,22 @@ export class BehaviorSubjectStateService {
         ...this._viewModelSub$.getValue(),
         selectedPlayer
       });
+    }
 
+    incrementPlayerLiked(player: IPlayerOverview): void {
+      const currentState = this._viewModelSub$.getValue();
+      const { positionSections } = currentState;
+      const sectionToUpdateIndex = positionSections.findIndex(section => section.position === player.position);
+      const playerToUpdateIndex = positionSections[sectionToUpdateIndex].players.findIndex(foundPlayer => player.name === foundPlayer.name);
+      const updatedPlayer: IPlayerOverview = {
+        ...positionSections[sectionToUpdateIndex].players[playerToUpdateIndex],
+        likes: player.likes++
+      };
+      positionSections[sectionToUpdateIndex].players[playerToUpdateIndex] = updatedPlayer;
+      this._viewModelSub$.next({
+        ...currentState,
+        positionSections
+      });
     }
 
     private getPositionsStream(): Observable<IPositionSections[]> {
