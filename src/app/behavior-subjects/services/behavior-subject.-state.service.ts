@@ -62,7 +62,7 @@ export class BehaviorSubjectStateService {
       const playerToUpdateIndex = positionSections[sectionToUpdateIndex].players.findIndex(foundPlayer => player.name === foundPlayer.name);
       const updatedPlayer: IPlayerOverview = {
         ...positionSections[sectionToUpdateIndex].players[playerToUpdateIndex],
-        likes: player.likes++
+        likes: ++player.likes
       };
       positionSections[sectionToUpdateIndex].players[playerToUpdateIndex] = updatedPlayer;
       this._viewModelSub$.next({
