@@ -6,6 +6,7 @@ import { BehaviorSubjectStateService } from "../services/behavior-subject.-state
 
 @Component({
   templateUrl: './behavior-subject.component.html',
+  styleUrls: [ '../../subscribes/components/subscribes.component.scss'],
   providers: [
     BehaviorSubjectStateService
   ]

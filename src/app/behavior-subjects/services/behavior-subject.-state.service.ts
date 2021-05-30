@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { BehaviorSubject, merge, Observable, of, Subject } from "rxjs";
+import { BehaviorSubject, from, merge, Observable, of, Subject } from "rxjs";
 import { first, map, mergeMap, publish, switchMap, take, tap } from "rxjs/operators";
 import { IBehaviorSubjectViewModel, IPlayerOverview, IPositionSections, PlayerPositionType } from "../../models/players.interface";
 import { PlayerHttpService } from "../../services/player-http.service";
@@ -21,18 +21,14 @@ export class BehaviorSubjectStateService {
   getViewModel(): Observable<IBehaviorSubjectViewModel> {
     const initialViewModel$: Observable<IBehaviorSubjectViewModel> = this.getPositionsStream().pipe(
       map(positionSections => ({ ...this.INITIAL_STATE, positionSections })),
+      switchMap(viewModel => this.getPlayerDetails(viewModel.positionSections).pipe(
+        map(positionSections => ({...viewModel, positionSections}))
+      )),
       tap(viewModel => {
         this._viewModelSub$.next(viewModel);
       })
     );
-    // const playerDetails$ = publish()(initialViewModel$.pipe(
-    //   switchMap(viewModel => {
-    //     const positionWithPlayers$ = viewModel.positionSections.map(position => {
-    //       return this.a
-    //     })
-    //   })
-    // ))
-
+  
     return merge(this.viewModel$, initialViewModel$);
   }
 
@@ -105,8 +101,25 @@ export class BehaviorSubjectStateService {
     )
   }
 
-  private addPlayerDetailsToPosition(position: IPositionSections): Observable<IPositionSections> {
-    return null;
+  private getPlayerDetails(positionSections: IPositionSections[]): Observable<IPositionSections[]> {
+    const updatedPostions$ = from(positionSections).pipe(
+      switchMap(section => {
+        return from(section.players).pipe(
+          switchMap(sectionPlayer => {
+            return this._playerHttpSvc.getPlayerDetails(sectionPlayer).pipe(
+              map(updatedPlayerDetail => {
+                const updatedPlayerIndex = section.players.findIndex(player => player.name === updatedPlayerDetail.name);
+                section.players[updatedPlayerIndex] = updatedPlayerDetail;
+                const updatedSectionIndex = positionSections.findIndex(foundSection => foundSection.position === section.position);
+                positionSections[updatedSectionIndex] = section;
+                return positionSections;
+              })
+            )
+          })
+        );
+      })
+    )
+    return updatedPostions$;
   }
 
 }
