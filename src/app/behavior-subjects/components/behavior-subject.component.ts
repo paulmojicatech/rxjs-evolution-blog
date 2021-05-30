@@ -1,5 +1,6 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewChild } from "@angular/core";
 import { FormGroup, FormBuilder } from '@angular/forms';
+import { MatDrawer } from "@angular/material/sidenav";
 import { Observable } from "rxjs";
 import { IBehaviorSubjectViewModel, IPlayerOverview } from "../../models/players.interface";
 import { BehaviorSubjectStateService } from "../services/behavior-subject.-state.service";
@@ -14,6 +15,9 @@ import { BehaviorSubjectStateService } from "../services/behavior-subject.-state
 
 export class BehaviorSubjectComponent implements OnInit{
 
+  @ViewChild('drawer')
+  drawer: MatDrawer;
+
   viewModel$: Observable<IBehaviorSubjectViewModel>;
   topFiveForm: FormGroup;
 
@@ -27,7 +31,8 @@ export class BehaviorSubjectComponent implements OnInit{
   }
 
   handlePlayerSelected(player: IPlayerOverview): void {
-
+    this.drawer.toggle();
+    this._behaviorSubjectStateService.loadPlayerDetails(player);
   }
 
   handlePlayerLiked(player: IPlayerOverview): void {
