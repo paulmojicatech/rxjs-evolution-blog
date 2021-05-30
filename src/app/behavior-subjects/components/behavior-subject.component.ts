@@ -4,7 +4,7 @@ import { MatDrawer } from "@angular/material/sidenav";
 import { merge, Observable } from "rxjs";
 import { debounceTime, ignoreElements, tap } from "rxjs/operators";
 import { IBehaviorSubjectViewModel, IPlayerOverview } from "../../models/players.interface";
-import { BehaviorSubjectStateService } from "../services/behavior-subject.-state.service";
+import { BehaviorSubjectStateService } from "../services/behavior-subject-state.service";
 
 @Component({
   templateUrl: './behavior-subject.component.html',
@@ -45,6 +45,4 @@ export class BehaviorSubjectComponent implements OnInit{
   handlePlayerLiked(player: IPlayerOverview): void {
     this._behaviorSubjectStateService.incrementPlayerLiked(player);
   }
-
-
 }
