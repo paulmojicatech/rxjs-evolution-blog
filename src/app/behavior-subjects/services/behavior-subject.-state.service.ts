@@ -169,7 +169,10 @@ export class BehaviorSubjectStateService {
                                     );
                                     section.players[
                                         updatedPlayerIndex
-                                    ] = updatedPlayerDetail;
+                                    ] = {
+                                      ...updatedPlayerDetail,
+                                      likes: 0
+                                    };
                                     const updatedSectionIndex = positionSections.findIndex(
                                         foundSection =>
                                             foundSection.position ===
