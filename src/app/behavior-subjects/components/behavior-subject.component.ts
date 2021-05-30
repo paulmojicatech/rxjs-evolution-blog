@@ -1,7 +1,8 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { MatDrawer } from "@angular/material/sidenav";
-import { Observable } from "rxjs";
+import { merge, Observable } from "rxjs";
+import { debounceTime, ignoreElements, tap } from "rxjs/operators";
 import { IBehaviorSubjectViewModel, IPlayerOverview } from "../../models/players.interface";
 import { BehaviorSubjectStateService } from "../services/behavior-subject.-state.service";
 
@@ -24,10 +25,16 @@ export class BehaviorSubjectComponent implements OnInit{
   constructor(private _fb: FormBuilder, private _behaviorSubjectStateService: BehaviorSubjectStateService){}
 
   ngOnInit(): void {
-    this.viewModel$ = this._behaviorSubjectStateService.getViewModel();
     this.topFiveForm = this._fb.group({
             position: [null],
         });
+    const searchFilterUpdated$ = this.topFiveForm.get('position').valueChanges.pipe(
+      debounceTime(250),
+      tap(updatedFilter => this._behaviorSubjectStateService.updateSearchFilter(updatedFilter)),
+      ignoreElements()
+    );
+    this.viewModel$ = merge(this._behaviorSubjectStateService.getViewModel(), searchFilterUpdated$);
+
   }
 
   handlePlayerSelected(player: IPlayerOverview): void {

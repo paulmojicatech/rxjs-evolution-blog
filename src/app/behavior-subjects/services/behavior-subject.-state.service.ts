@@ -71,6 +71,13 @@ export class BehaviorSubjectStateService {
       });
     }
 
+    updateSearchFilter(updatedFilter: string): void {
+      this._viewModelSub$.next({
+        ...this._viewModelSub$.getValue(),
+        searchFilter: updatedFilter
+      });
+    }
+
     private getPositionsStream(): Observable<IPositionSections[]> {
         return this._playerHttpSvc.getPlayers().pipe(
             map(players => {
